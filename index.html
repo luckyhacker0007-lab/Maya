@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To The Love of My Life ❤️</title>
+    <title>For Maya ❤️</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --rose-pink: #ff6b9d;
@@ -15,6 +15,10 @@
             --pearl-white: #fff5f7;
             --gold-accent: #d4af37;
             --romantic-red: #e63946;
+            --night-sky: #0a1128;
+            --moon-glow: #ffd700;
+            --tulip-pink: #ff69b4;
+            --tulip-red: #dc143c;
         }
 
         * {
@@ -24,15 +28,30 @@
         }
 
         body {
-            font-family: 'Crimson Text', serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #ffe0ec 50%, #ffd6e8 100%);
-            color: #4a1c40;
+            font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* Floating Hearts Background */
-        .floating-hearts {
+        /* === VIEW CONTAINERS === */
+        .view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .view.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* === FLOATING PARTICLES === */
+        .particles {
             position: fixed;
             top: 0;
             left: 0;
@@ -43,7 +62,7 @@
             overflow: hidden;
         }
 
-        .heart {
+        .particle {
             position: absolute;
             font-size: 20px;
             opacity: 0;
@@ -67,341 +86,108 @@
             }
         }
 
-        /* Floating Petals */
-        .petals-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .petal {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: radial-gradient(ellipse at center, #ffb3d9 0%, #ff8fb3 50%, transparent 70%);
-            border-radius: 50% 0 50% 0;
-            opacity: 0.6;
-            animation: fall 12s linear infinite;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-            }
-            100% {
-                transform: translateY(110vh) rotate(720deg);
-            }
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 193, 227, 0.15) 0%, transparent 50%),
-                linear-gradient(135deg, rgba(255, 182, 193, 0.3) 0%, rgba(255, 240, 245, 0.5) 100%);
-            z-index: 2;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(255, 107, 157, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.5;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.1);
-                opacity: 0.8;
-            }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink), var(--deep-rose));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        .hero p {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--deep-rose);
-            margin-bottom: 2.5rem;
-            font-style: italic;
-            animation: fadeInUp 1.5s ease-out 0.3s backwards;
-        }
-
-        .hero-btn {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            padding: 1.2rem 3rem;
-            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
-            animation: fadeInUp 1.5s ease-out 0.6s backwards;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .hero-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
-        }
-
-        /* Section Styles */
-        section {
-            position: relative;
-            z-index: 2;
-            padding: 5rem 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Love Story Timeline */
-        .timeline {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        .timeline-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 245, 250, 0.9));
-            backdrop-filter: blur(10px);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.15);
-            border: 2px solid rgba(255, 193, 227, 0.3);
-            transition: all 0.4s ease;
-            transform-origin: center;
-        }
-
-        .timeline-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.25);
-            border-color: var(--rose-pink);
-        }
-
-        .timeline-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--deep-rose);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .timeline-card h3::before {
-            content: '💕';
-            font-size: 1.5rem;
-        }
-
-        .timeline-card p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #6d4c5b;
-        }
-
-        /* Why I Love You Section */
-        .love-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            padding: 0 1rem;
-        }
-
-        .love-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.95));
-            padding: 2.5rem;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .love-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 107, 157, 0.1) 0%, transparent 70%);
-            transition: all 0.6s ease;
-            opacity: 0;
-        }
-
-        .love-card:hover::before {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
-        .love-card:hover {
-            transform: translateY(-15px) rotate(2deg);
-            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.25);
-        }
-
-        .love-card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: heartbeat 1.5s ease-in-out infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-            10%, 30% {
-                transform: scale(1.1);
-            }
-            20%, 40% {
-                transform: scale(0.95);
-            }
-        }
-
-        .love-card p {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--deep-rose);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Special Question Section */
-        .question-section {
-            background: linear-gradient(135deg, rgba(230, 57, 70, 0.1) 0%, rgba(255, 107, 157, 0.1) 100%);
-            min-height: 100vh;
+        /* ===================================
+           QUESTION VIEW
+        =================================== */
+        #questionView {
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0ec 50%, #ffd6e8 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3rem 2rem;
+            z-index: 10;
         }
 
-        .question-box {
+        .question-container {
+            text-align: center;
+            padding: 3rem;
+            max-width: 700px;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 250, 0.95));
             backdrop-filter: blur(20px);
-            padding: 4rem 3rem;
             border-radius: 30px;
-            text-align: center;
-            max-width: 700px;
             box-shadow: 
                 0 0 60px rgba(255, 107, 157, 0.3),
-                0 0 120px rgba(255, 107, 157, 0.2),
-                inset 0 0 60px rgba(255, 255, 255, 0.5);
+                0 0 120px rgba(255, 107, 157, 0.2);
             border: 3px solid rgba(255, 193, 227, 0.5);
-            animation: glow 3s ease-in-out infinite;
+            animation: glow 3s ease-in-out infinite, fadeInScale 1s ease-out;
+            position: relative;
         }
 
         @keyframes glow {
             0%, 100% {
                 box-shadow: 
                     0 0 60px rgba(255, 107, 157, 0.3),
-                    0 0 120px rgba(255, 107, 157, 0.2),
-                    inset 0 0 60px rgba(255, 255, 255, 0.5);
+                    0 0 120px rgba(255, 107, 157, 0.2);
             }
             50% {
                 box-shadow: 
                     0 0 80px rgba(255, 107, 157, 0.5),
-                    0 0 160px rgba(255, 107, 157, 0.3),
-                    inset 0 0 80px rgba(255, 255, 255, 0.7);
+                    0 0 160px rgba(255, 107, 157, 0.3);
             }
         }
 
-        .question-box h3 {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.5rem;
-            font-style: italic;
-            color: var(--deep-rose);
-            margin-bottom: 2rem;
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        .question-box h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
+        .question-container h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--deep-rose);
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .question-container h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
             background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink), var(--gold-accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             line-height: 1.3;
+        }
+
+        .compliment-text {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.3rem;
+            color: var(--deep-rose);
+            margin: 1.5rem 0;
+            min-height: 40px;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .compliment-text.show {
+            opacity: 1;
+            animation: pulse 0.6s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .button-container {
@@ -409,10 +195,11 @@
             gap: 2rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-top: 2rem;
         }
 
         .answer-btn {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Quicksand', sans-serif;
             font-size: 1.5rem;
             font-weight: 700;
             padding: 1.2rem 3rem;
@@ -429,7 +216,7 @@
         }
 
         .yes-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(-2deg);
             box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
         }
 
@@ -439,6 +226,448 @@
             border: 2px solid var(--rose-pink);
             position: relative;
             transition: all 0.2s ease;
+        }
+
+        /* ===================================
+           CHOICE VIEW
+        =================================== */
+        #choiceView {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9;
+        }
+
+        .choice-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            padding: 2rem;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .choice-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .choice-card:hover::before {
+            opacity: 1;
+        }
+
+        .choice-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: var(--rose-pink);
+            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.4);
+        }
+
+        .choice-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.1);
+            }
+            20%, 40% {
+                transform: scale(0.95);
+            }
+        }
+
+        .choice-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .choice-subtitle {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===================================
+           INSIDE MY HEART VIEW
+        =================================== */
+        #insideHeartView {
+            background: 
+                linear-gradient(135deg, rgba(255, 182, 193, 0.3) 0%, rgba(255, 240, 245, 0.5) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="tulip1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23ff69b4;stop-opacity:0.4" /><stop offset="100%" style="stop-color:%23dc143c;stop-opacity:0.4" /></linearGradient><linearGradient id="tulip2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23ff1493;stop-opacity:0.3" /><stop offset="100%" style="stop-color:%23c71585;stop-opacity:0.3" /></linearGradient></defs><ellipse cx="200" cy="700" rx="30" ry="50" fill="url(%23tulip1)" /><ellipse cx="180" cy="700" rx="25" ry="45" fill="url(%23tulip2)" /><ellipse cx="220" cy="700" rx="25" ry="45" fill="url(%23tulip2)" /><rect x="195" y="700" width="10" height="80" fill="%234a7c3f" opacity="0.3" /><ellipse cx="500" cy="720" rx="30" ry="50" fill="url(%23tulip1)" /><ellipse cx="480" cy="720" rx="25" ry="45" fill="url(%23tulip2)" /><ellipse cx="520" cy="720" rx="25" ry="45" fill="url(%23tulip2)" /><rect x="495" y="720" width="10" height="80" fill="%234a7c3f" opacity="0.3" /><ellipse cx="800" cy="710" rx="30" ry="50" fill="url(%23tulip1)" /><ellipse cx="780" cy="710" rx="25" ry="45" fill="url(%23tulip2)" /><ellipse cx="820" cy="710" rx="25" ry="45" fill="url(%23tulip2)" /><rect x="795" y="710" width="10" height="80" fill="%234a7c3f" opacity="0.3" /><ellipse cx="1000" cy="730" rx="30" ry="50" fill="url(%23tulip1)" /><ellipse cx="980" cy="730" rx="25" ry="45" fill="url(%23tulip2)" /><ellipse cx="1020" cy="730" rx="25" ry="45" fill="url(%23tulip2)" /><rect x="995" y="730" width="10" height="80" fill="%234a7c3f" opacity="0.3" /><ellipse cx="350" cy="690" rx="30" ry="50" fill="url(%23tulip1)" /><ellipse cx="330" cy="690" rx="25" ry="45" fill="url(%23tulip2)" /><ellipse cx="370" cy="690" rx="25" ry="45" fill="url(%23tulip2)" /><rect x="345" y="690" width="10" height="80" fill="%234a7c3f" opacity="0.3" /><ellipse cx="650" cy="715" rx="30" ry="50" fill="url(%23tulip1)" /><ellipse cx="630" cy="715" rx="25" ry="45" fill="url(%23tulip2)" /><ellipse cx="670" cy="715" rx="25" ry="45" fill="url(%23tulip2)" /><rect x="645" y="715" width="10" height="80" fill="%234a7c3f" opacity="0.3" /></svg>');
+            background-size: cover, cover;
+            background-position: center, bottom;
+            overflow-y: auto;
+            z-index: 8;
+            padding: 3rem 1rem;
+        }
+
+        .heart-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 3rem;
+        }
+
+        .heart-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heart-header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .heart-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 250, 0.95));
+            backdrop-filter: blur(15px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.15);
+            border: 2px solid rgba(255, 193, 227, 0.3);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .heart-card:nth-child(2) { animation-delay: 0.2s; }
+        .heart-card:nth-child(3) { animation-delay: 0.4s; }
+        .heart-card:nth-child(4) { animation-delay: 0.6s; }
+
+        .heart-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(255, 107, 157, 0.25);
+            border-color: var(--rose-pink);
+        }
+
+        .heart-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--deep-rose);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .heart-card h3::before {
+            content: '💕';
+            font-size: 1.5rem;
+        }
+
+        .heart-card p {
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #6d4c5b;
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.3);
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.5);
+        }
+
+        /* ===================================
+           FOR YOU (MUSIC PLAYER) VIEW
+        =================================== */
+        #forYouView {
+            background: linear-gradient(180deg, var(--night-sky) 0%, #1a1f3a 50%, #2a2f4f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 8;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .moon {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle at 30% 30%, var(--moon-glow), #ffa500);
+            border-radius: 50%;
+            box-shadow: 0 0 80px var(--moon-glow), 0 0 150px rgba(255, 215, 0, 0.5);
+            animation: moonGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes moonGlow {
+            0%, 100% {
+                box-shadow: 0 0 80px var(--moon-glow), 0 0 150px rgba(255, 215, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 120px var(--moon-glow), 0 0 200px rgba(255, 215, 0, 0.7);
+            }
+        }
+
+        .music-player-container {
+            position: relative;
+            z-index: 10;
+            max-width: 600px;
+            width: 90%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(30px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .player-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .player-header h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-header p {
+            font-family: 'Quicksand', sans-serif;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .now-playing {
+            text-align: center;
+            margin: 2rem 0;
+            min-height: 80px;
+        }
+
+        .now-playing-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .now-playing-artist {
+            font-family: 'Quicksand', sans-serif;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+        }
+
+        .progress-container {
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--rose-pink), var(--romantic-red));
+            width: 0%;
+            transition: width 0.1s linear;
+            border-radius: 10px;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Quicksand', sans-serif;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .play-pause-btn {
+            width: 70px;
+            height: 70px;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink));
+            border: none;
+        }
+
+        .play-pause-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+        }
+
+        .playlist {
+            margin-top: 2rem;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .playlist-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .playlist-item.active {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(255, 193, 227, 0.2));
+            border-color: var(--rose-pink);
+        }
+
+        .playlist-item-icon {
+            font-size: 1.5rem;
+        }
+
+        .playlist-item-info {
+            flex: 1;
+        }
+
+        .playlist-item-title {
+            font-family: 'Quicksand', sans-serif;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .playlist-item-artist {
+            font-family: 'Quicksand', sans-serif;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Custom Scrollbar */
+        .playlist::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .playlist::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .playlist::-webkit-scrollbar-thumb {
+            background: var(--rose-pink);
+            border-radius: 10px;
         }
 
         /* Fireworks */
@@ -472,166 +701,97 @@
             }
         }
 
-        /* Success Message */
-        .success-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 245, 250, 0.98));
-            backdrop-filter: blur(20px);
-            padding: 4rem 3rem;
-            border-radius: 30px;
-            text-align: center;
-            max-width: 600px;
-            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.4);
-            border: 3px solid var(--rose-pink);
-            z-index: 10000;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .success-message.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .success-message h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-        }
-
-        .success-message p {
-            font-size: 1.5rem;
-            color: var(--deep-rose);
-            font-style: italic;
-        }
-
-        /* Music Control */
-        .music-control {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1000;
-            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink));
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .music-control:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.6);
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .question-box {
-                padding: 3rem 2rem;
-            }
-            
-            .button-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .answer-btn {
-                width: 100%;
-            }
-            
-            .timeline-card {
+            .question-container {
                 padding: 2rem;
             }
+            
+            .choice-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .heart-card {
+                padding: 2rem;
+            }
+
+            .moon {
+                width: 100px;
+                height: 100px;
+                right: 10%;
+            }
+
+            .music-player-container {
+                padding: 2rem;
+            }
+
+            .back-btn {
+                top: 1rem;
+                left: 1rem;
+            }
         }
-        .song-card {
-    cursor: pointer;
-    position: relative;
-}
-
-.song-card small {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--rose-pink);
-    margin-top: 0.5rem;
-    font-style: italic;
-}
-
-.song-card.playing {
-    background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(255, 193, 227, 0.3));
-    border: 2px solid var(--rose-pink);
-}
-
-.play-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2rem;
-    opacity: 0.6;
-    transition: all 0.3s ease;
-}
-
-.song-card.playing .play-icon {
-    opacity: 1;
-}
-
-.song-card.playing .play-icon::before {
-    content: '⏸️';
-}
     </style>
 </head>
 <body>
-    <!-- Floating Hearts -->
-    <div class="floating-hearts" id="floatingHearts"></div>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
 
-    <!-- Floating Petals -->
-    <div class="petals-container" id="petalsContainer"></div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>To The Love of My Life ❤️</h1>
-            <p>Every moment with you feels like magic.</p>
-            <a href="#love-story" class="hero-btn">Click Here, My Love MAYA</a>
+    <!-- ============ QUESTION VIEW ============ -->
+    <div class="view active" id="questionView">
+        <div class="question-container">
+            <h3>My Dearest Maya... 💕</h3>
+            <h2>Will you be my Valentine forever and always? 🌹</h2>
+            <div class="compliment-text" id="complimentText"></div>
+            <div class="button-container">
+                <button class="answer-btn yes-btn" id="yesBtn">YES, Forever! 💍</button>
+                <button class="answer-btn no-btn" id="noBtn">Maybe... 😊</button>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Love Story Section -->
-    <section id="love-story">
-        <h2 class="section-title">Our Beautiful Journey</h2>
-        <div class="timeline">
-            <div class="timeline-card">
+    <!-- ============ CHOICE VIEW ============ -->
+    <div class="view" id="choiceView">
+        <div class="choice-container">
+            <div class="choice-card" id="insideHeartBtn">
+                <div class="choice-icon">💌</div>
+                <h3 class="choice-title">Inside My Heart</h3>
+                <p class="choice-subtitle">Read what's written in my soul for you</p>
+            </div>
+            <div class="choice-card" id="forYouBtn">
+                <div class="choice-icon">🎵</div>
+                <h3 class="choice-title">For You</h3>
+                <p class="choice-subtitle">Songs that remind me of us</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ INSIDE MY HEART VIEW ============ -->
+    <div class="view" id="insideHeartView">
+        <button class="back-btn" id="backFromHeart">← Back</button>
+        <div class="heart-content">
+            <div class="heart-header">
+                <h1>What's Inside My Heart 💕</h1>
+            </div>
+            
+            <div class="heart-card">
                 <h3>The Way We Met</h3>
                 <p>It still feels unreal how two strangers, living in their own separate worlds, met online and slowly began to trust each other. What started as simple conversations turned into something much deeper — something neither of us expected.
 
-Then came the moment that changed everything for us — your decision to choose the same degree and the same college as mine. Even you told me that you wasn’t from a computer background, you didn’t hesitate. You believed in me more than I believed in myself. You asked me to promise you that I will help you throughtout, and i agreed.
+Then came the moment that changed everything for us — your decision to choose the same degree and the same college as mine. Even you told me that you wasn't from a computer background, you didn't hesitate. You believed in me more than I believed in myself. You asked me to promise you that I will help you throughout, and I agreed.
 
-And that’s where our real story began — not just as two students, but as two souls choosing each other --<b>GOD'S PLAN</b>.</p>
+And that's where our real story began — not just as two students, but as two souls choosing each other — <strong>GOD'S PLAN</strong>.</p>
             </div>
-            <div class="timeline-card">
-                <h3>My Special Memory with you</h3>
-                <p>That hug wasn’t just a hug. It was the kind of moment that words fail to explain.
 
-I remember how you were a little nervous, looking around with that adorable fear in your eyes — worried that someone might see us. You’ve always been that careful one, that thoughtful one. But in that moment, none of that mattered to me.
+            <div class="heart-card">
+                <h3>My Special Memory with You</h3>
+                <p>That hug wasn't just a hug. It was the kind of moment that words fail to explain.
 
-When I wrapped my arms around you, it didn’t feel like I was just holding you… it felt like I was finally where I was meant to be.
+I remember how you were a little nervous, looking around with that adorable fear in your eyes — worried that someone might see us. You've always been that careful one, that thoughtful one. But in that moment, none of that mattered to me.
 
-It was a tight hug — not rushed, not casual — but the kind where you don’t want to let go. The kind where your heart slows down and everything else fades away. The world kept moving, people kept walking, but for me, time stopped.
+When I wrapped my arms around you, it didn't feel like I was just holding you… it felt like I was finally where I was meant to be.
+
+It was a tight hug — not rushed, not casual — but the kind where you don't want to let go. The kind where your heart slows down and everything else fades away. The world kept moving, people kept walking, but for me, time stopped.
 
 You may have been worried about who might see us…
 But I was feeling something completely different.
@@ -640,25 +800,25 @@ I was feeling complete.
 
 Like two incomplete pieces had finally found their place. Like the space between us disappeared, and for those few seconds, it was just us — no noise, no fear, no outside world.
 
-That hug didn’t just bring us closer physically… it made me realize how deeply I felt for you.
+That hug didn't just bring us closer physically… it made me realize how deeply I felt for you.
 
-And even today, when I think about it, I don’t remember the surroundings. I don’t remember the people.
+And even today, when I think about it, I don't remember the surroundings. I don't remember the people.
 
 I just remember the warmth.
 The heartbeat.
 And the feeling of being whole with you.
---<b>THE FIRST AND LAST HUG</b>
-</p>
+— <strong>THE FIRST AND LAST HUG</strong></p>
             </div>
-            <div class="timeline-card">
-                <h3>Some other Sweet Memories</h3>
-                <p>In that open space of GBU, time slowed down, and when you asked me for that forehead kiss, I didn’t even think — I just did it. Gently. With a pause. As if I wanted to freeze that moment forever.
+
+            <div class="heart-card">
+                <h3>Some Other Sweet Memories</h3>
+                <p>In that open space of GBU, time slowed down, and when you asked me for that forehead kiss, I didn't even think — I just did it. Gently. With a pause. As if I wanted to freeze that moment forever.
 
 For a second, I was completely blank… just feeling you, feeling us.
 
 And then there were those little moments that meant everything.
 
-Like that day in the middle of GBU when you fed me dosa. I was sitting, and you were standing right in front of me, smiling in that soft way you do. I held you close while you leaned slightly towards me — it wasn’t just about the food, it was about how natural we felt together. Like we belonged in each other’s space.
+Like that day in the middle of GBU when you fed me dosa. I was sitting, and you were standing right in front of me, smiling in that soft way you do. I held you close while you leaned slightly towards me — it wasn't just about the food, it was about how natural we felt together. Like we belonged in each other's space.
 
 And that circular seating area… when you asked me to hold you from behind. You slowly relaxed yourself into my arms, resting back against me as if that was your safest place. I remember how peaceful you looked in that moment. Like the world could do nothing to you because I was there.
 
@@ -674,153 +834,127 @@ Small gestures became lifetime memories.
 Every moment with you felt like magic — not because of where we were, but because we were together.</p>
             </div>
         </div>
-    </section>
-
-    <!-- Songs Section -->
-<section id="why-i-love-you">
-    <h2 class="section-title">Songs Dedicated to You...</h2>
-    <div class="love-grid">
-        <div class="love-card song-card" data-song="song1">
-            <div class="play-icon">▶️</div>
-            <div class="love-card-icon">🎵</div>
-            <p>TT</p>
-            <small>Click to play</small>
-        </div>
-        <div class="love-card song-card" data-song="song6">
-            <div class="play-icon">▶️</div>
-            <div class="love-card-icon">🎵</div>
-            <p>JLH</p>
-            <small>Click to play</small>
-        </div>
-        <div class="love-card song-card" data-song="song2">
-            <div class="play-icon">▶️</div>
-            <div class="love-card-icon">🎶</div>
-            <p>KTYB</p>
-            <small>Click to play</small>
-        </div>
-        <div class="love-card song-card" data-song="song3">
-            <div class="play-icon">▶️</div>
-            <div class="love-card-icon">💿</div>
-            <p>KTYB</p>
-            <small>Click to play</small>
-        </div>
-        <div class="love-card song-card" data-song="song4">
-            <div class="play-icon">▶️</div>
-            <div class="love-card-icon">🎼</div>
-            <p>WTH</p>
-            <small>Click to play</small>
-        </div>
-        <div class="love-card song-card" data-song="song5">
-            <div class="play-icon">▶️</div>
-            <div class="love-card-icon">🎤</div>
-            <p>ES</p>
-            <small>Click to play</small>
-        </div>
     </div>
 
-    <!-- Hidden Audio Elements -->
-    <audio id="song1" src="TT.mp3"></audio>
-    <audio id="song2" src="KC.mp3"></audio>
-    <audio id="song3" src="KTYB.mp3"></audio>
-    <audio id="song4" src="WTH.mp3"></audio>
-    <audio id="song5" src="EC.mp3"></audio>
-    <audio id="song5" src="JLH.mp3"></audio>
-</section>
+    <!-- ============ FOR YOU (MUSIC) VIEW ============ -->
+    <div class="view" id="forYouView">
+        <button class="back-btn" id="backFromMusic">← Back</button>
+        
+        <!-- Stars -->
+        <div class="stars" id="starsContainer"></div>
+        
+        <!-- Moon -->
+        <div class="moon"></div>
 
-    <!-- Special Question Section -->
-    <section class="question-section">
-        <div class="question-box">
-            <h3>I have one question for you...</h3>
-            <h2>Will you always be my Valentine? ❤️</h2>
-            <div class="button-container">
-                <button class="answer-btn yes-btn" id="yesBtn">YES 💍</button>
-                <button class="answer-btn no-btn" id="noBtn">NO 😜</button>
+        <div class="music-player-container">
+            <div class="player-header">
+                <h2>Songs For You 🌙</h2>
+                <p>Music that speaks what my heart feels</p>
+            </div>
+
+            <div class="now-playing">
+                <div class="now-playing-title" id="nowPlayingTitle">Select a song to play</div>
+                <div class="now-playing-artist" id="nowPlayingArtist"></div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+            </div>
+
+            <div class="player-controls">
+                <button class="control-btn" id="prevBtn">⏮</button>
+                <button class="control-btn play-pause-btn" id="playPauseBtn">▶️</button>
+                <button class="control-btn" id="nextBtn">⏭</button>
+            </div>
+
+            <div class="playlist" id="playlist">
+                <!-- Playlist items will be generated by JS -->
             </div>
         </div>
-    </section>
+
+        <!-- Hidden Audio Element -->
+        <audio id="audioPlayer"></audio>
+    </div>
 
     <!-- Fireworks Container -->
     <div class="fireworks-container" id="fireworksContainer"></div>
 
-    <!-- Success Message -->
-    <div class="success-message" id="successMessage">
-        <h2>🎉 Forever & Always! 🎉</h2>
-        <p>You just made me the happiest person alive!</p>
-    </div>
-
-    <!-- Background Music -->
-    <audio id="bgMusic" loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-    </audio>
-    <button class="music-control" id="musicToggle">🎵</button>
-
     <script>
-        // Floating Hearts
-        function createFloatingHearts() {
-            const container = document.getElementById('floatingHearts');
+        // ============ COMPLIMENTS ============
+        const compliments = [
+            "Your mole is so attractive, it's like a beauty mark from heaven itself 💫",
+            "Your smile lights up my entire world like the morning sun 🌅",
+            "You're an apsara who walked into my life from a dream 👑",
+            "Your boldness is one of the sexiest things about you 🔥",
+            "The way you laugh makes my heart skip beats 💓",
+            "Your eyes hold galaxies that I could get lost in forever 🌌",
+            "You're more beautiful than any sunset I've ever seen 🌺",
+            "Your confidence makes you absolutely irresistible 💋",
+            "When you blush, you're the prettiest thing in existence 🌸",
+            "Your intelligence is as captivating as your beauty 📚✨",
+            "The way you care for me melts my heart every single time 🥰",
+            "Your voice is my favorite sound in the whole universe 🎵",
+            "You're the definition of grace and elegance 👸",
+            "Your presence makes everything better automatically ⭐",
+            "You have the most adorable way of doing everything 🎀",
+            "Your kindness radiates and touches everyone around you 🌟",
+            "You're stronger than you realize and I admire that so much 💪💕",
+            "The way you trust me makes me want to protect you forever 🛡️",
+            "Your spirit is wild and free and absolutely mesmerizing 🦋",
+            "You're the most precious person in my entire life 💎"
+        ];
+
+        let complimentIndex = 0;
+        let noBtnClickCount = 0;
+
+        // ============ FLOATING PARTICLES ============
+        function createParticles() {
+            const container = document.getElementById('particles');
             setInterval(() => {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.textContent = Math.random() > 0.5 ? '❤️' : '💕';
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 2 + 's';
-                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                container.appendChild(heart);
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.textContent = Math.random() > 0.5 ? '❤️' : '💕';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particle.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                container.appendChild(particle);
                 
-                setTimeout(() => heart.remove(), 8000);
-            }, 1000);
+                setTimeout(() => particle.remove(), 8000);
+            }, 1500);
         }
 
-        // Floating Petals
-        function createFloatingPetals() {
-            const container = document.getElementById('petalsContainer');
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    const petal = document.createElement('div');
-                    petal.className = 'petal';
-                    petal.style.left = Math.random() * 100 + '%';
-                    petal.style.animationDelay = Math.random() * 5 + 's';
-                    petal.style.animationDuration = (Math.random() * 8 + 10) + 's';
-                    container.appendChild(petal);
-                    
-                    setTimeout(() => {
-                        petal.remove();
-                        createFloatingPetals();
-                    }, 12000);
-                }, i * 400);
-            }
-        }
-
-        // Scroll Animation
-        function observeSections() {
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        }
-
-        // No Button Movement
+        // ============ NO BUTTON BEHAVIOR ============
         const noBtn = document.getElementById('noBtn');
-        let noBtnMoveCount = 0;
+        const complimentText = document.getElementById('complimentText');
+
+        function showCompliment() {
+            complimentText.textContent = compliments[complimentIndex];
+            complimentText.classList.remove('show');
+            
+            setTimeout(() => {
+                complimentText.classList.add('show');
+            }, 10);
+            
+            complimentIndex = (complimentIndex + 1) % compliments.length;
+        }
 
         noBtn.addEventListener('mouseenter', () => {
-            noBtnMoveCount++;
+            noBtnClickCount++;
+            showCompliment();
+            
             const maxX = window.innerWidth - noBtn.offsetWidth - 40;
             const maxY = window.innerHeight - noBtn.offsetHeight - 40;
             
-            let newX = Math.random() * maxX;
-            let newY = Math.random() * maxY;
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
             
-            // Make it more dramatic each time
-            if (noBtnMoveCount > 3) {
+            if (noBtnClickCount > 3) {
                 noBtn.style.transition = 'all 0.1s ease';
             }
             
@@ -829,17 +963,18 @@ Every moment with you felt like magic — not because of where we were, but beca
             noBtn.style.top = newY + 'px';
         });
 
-        // Touch support for mobile
         noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            noBtnMoveCount++;
+            noBtnClickCount++;
+            showCompliment();
+            
             const maxX = window.innerWidth - noBtn.offsetWidth - 40;
             const maxY = window.innerHeight - noBtn.offsetHeight - 40;
             
-            let newX = Math.random() * maxX;
-            let newY = Math.random() * maxY;
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
             
-            if (noBtnMoveCount > 3) {
+            if (noBtnClickCount > 3) {
                 noBtn.style.transition = 'all 0.1s ease';
             }
             
@@ -848,26 +983,20 @@ Every moment with you felt like magic — not because of where we were, but beca
             noBtn.style.top = newY + 'px';
         });
 
-        // Yes Button - Fireworks
+        // ============ YES BUTTON - FIREWORKS & TRANSITION ============
         const yesBtn = document.getElementById('yesBtn');
         const fireworksContainer = document.getElementById('fireworksContainer');
-        const successMessage = document.getElementById('successMessage');
 
         yesBtn.addEventListener('click', () => {
             // Show fireworks
             fireworksContainer.style.display = 'block';
             createFireworks();
             
-            // Show success message
-            setTimeout(() => {
-                successMessage.classList.add('show');
-            }, 500);
-            
-            // Hide everything after 5 seconds
+            // Transition to choice view after 2 seconds
             setTimeout(() => {
                 fireworksContainer.style.display = 'none';
-                successMessage.classList.remove('show');
-            }, 5000);
+                switchView('choiceView');
+            }, 2000);
         });
 
         function createFireworks() {
@@ -901,76 +1030,191 @@ Every moment with you felt like magic — not because of where we were, but beca
             }
         }
 
-        // Music Control
-        const bgMusic = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
+        // ============ VIEW SWITCHING ============
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+        }
+
+        // Choice buttons
+        document.getElementById('insideHeartBtn').addEventListener('click', () => {
+            switchView('insideHeartView');
+        });
+
+        document.getElementById('forYouBtn').addEventListener('click', () => {
+            switchView('forYouView');
+            initStars();
+        });
+
+        // Back buttons
+        document.getElementById('backFromHeart').addEventListener('click', () => {
+            switchView('choiceView');
+        });
+
+        document.getElementById('backFromMusic').addEventListener('click', () => {
+            switchView('choiceView');
+        });
+
+        // ============ STARS FOR MUSIC VIEW ============
+        function initStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            starsContainer.innerHTML = ''; // Clear existing stars
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // ============ MUSIC PLAYER ============
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+        const nowPlayingArtist = document.getElementById('nowPlayingArtist');
+        const playlistContainer = document.getElementById('playlist');
+
+        // Playlist data (you'll need to add your actual song files)
+        const playlist = [
+            { title: "Me to You..", artist: "My Love Song", file: "TT.mp3", icon: "🎵" },
+            { title: "The way you chnaged my Life..", artist: "Romantic Melody", file: "JLH.mp3", icon: "🎵" },
+            { title: "Dream Of..", artist: "Song Version", file: "KC.mp3", icon: "🎶" },
+            { title: "My <3 saying..", artist: "Heart", file: "KTYB.mp3", icon: "💿" },
+            { title: "Deep Voices..", artist: "Deep Inside", file: "WTH.mp3", icon: "🎼" },
+            { title: "You <3..", artist: "Melody Like You", file: "ES.mp3", icon: "🎤" }
+        ];
+
+        let currentTrackIndex = 0;
         let isPlaying = false;
 
-        musicToggle.addEventListener('click', () => {
+        // Generate playlist items
+        function generatePlaylist() {
+            playlistContainer.innerHTML = '';
+            playlist.forEach((track, index) => {
+                const item = document.createElement('div');
+                item.className = 'playlist-item';
+                if (index === currentTrackIndex) item.classList.add('active');
+                
+                item.innerHTML = `
+                    <div class="playlist-item-icon">${track.icon}</div>
+                    <div class="playlist-item-info">
+                        <div class="playlist-item-title">${track.title}</div>
+                        <div class="playlist-item-artist">${track.artist}</div>
+                    </div>
+                `;
+                
+                item.addEventListener('click', () => {
+                    loadTrack(index);
+                    if (!isPlaying) togglePlay();
+                });
+                
+                playlistContainer.appendChild(item);
+            });
+        }
+
+        // Load track
+        // Load track
+function loadTrack(index) {
+    const wasPlaying = isPlaying; // Remember if music was playing
+    currentTrackIndex = index;
+    const track = playlist[index];
+    
+    audioPlayer.src = track.file;
+    nowPlayingTitle.textContent = track.title;
+    nowPlayingArtist.textContent = track.artist;
+    
+    // Update playlist active state
+    document.querySelectorAll('.playlist-item').forEach((item, i) => {
+        if (i === index) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+    
+    // Auto-play if music was already playing
+    if (wasPlaying) {
+        audioPlayer.play();
+    }
+}
+
+        // Toggle play/pause
+        function togglePlay() {
             if (isPlaying) {
-                bgMusic.pause();
-                musicToggle.textContent = '🎵';
+                audioPlayer.pause();
+                playPauseBtn.textContent = '▶️';
             } else {
-                bgMusic.play();
-                musicToggle.textContent = '🔇';
+                audioPlayer.play();
+                playPauseBtn.textContent = '⏸️';
             }
             isPlaying = !isPlaying;
+        }
+
+        // Previous track
+        function prevTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) audioPlayer.play();
+        }
+
+        // Next track
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(currentTrackIndex);
+            if (isPlaying) audioPlayer.play();
+        }
+
+        // Format time
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Update progress
+        function updateProgress() {
+            const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            progress.style.width = percent + '%';
+            currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+        }
+
+        // Seek
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            audioPlayer.currentTime = percent * audioPlayer.duration;
         });
 
-        // Auto-play music (with user interaction requirement)
-        document.addEventListener('click', () => {
-            if (!isPlaying) {
-                bgMusic.play().then(() => {
-                    isPlaying = true;
-                    musicToggle.textContent = '🔇';
-                }).catch(() => {
-                    // Auto-play prevented
-                });
-            }
-        }, { once: true });
+        // Event listeners
+        playPauseBtn.addEventListener('click', togglePlay);
+        prevBtn.addEventListener('click', prevTrack);
+        nextBtn.addEventListener('click', nextTrack);
 
-        // Initialize
-        createFloatingHearts();
-        createFloatingPetals();
-        observeSections();
-        
-        // Make hero visible immediately
-        document.querySelector('.hero').classList.add('visible');
-
-        // Song Player Functionality
-const songCards = document.querySelectorAll('.song-card');
-let currentAudio = null;
-
-songCards.forEach(card => {
-    card.addEventListener('click', function() {
-        const songId = this.getAttribute('data-song');
-        const audio = document.getElementById(songId);
-        
-        // Stop currently playing song
-        if (currentAudio && currentAudio !== audio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            document.querySelectorAll('.song-card').forEach(c => c.classList.remove('playing'));
-        }
-        
-        // Toggle play/pause
-        if (audio.paused) {
-            audio.play();
-            this.classList.add('playing');
-            currentAudio = audio;
-        } else {
-            audio.pause();
-            this.classList.remove('playing');
-            currentAudio = null;
-        }
-        
-        // Remove playing state when song ends
-        audio.addEventListener('ended', () => {
-            this.classList.remove('playing');
-            currentAudio = null;
+        audioPlayer.addEventListener('timeupdate', updateProgress);
+        audioPlayer.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audioPlayer.duration);
         });
-    });
-});
+        audioPlayer.addEventListener('ended', nextTrack);
+
+        // ============ INITIALIZATION ============
+        createParticles();
+        generatePlaylist();
+        
+        // Auto-play first track on load (optional)
+        // loadTrack(0);
     </script>
 </body>
 </html>
