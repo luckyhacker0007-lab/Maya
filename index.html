@@ -703,34 +703,45 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .question-container {
-                padding: 2rem;
-            }
-            
-            .choice-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .heart-card {
-                padding: 2rem;
-            }
+    .question-container {
+        padding: 2rem;
+    }
+    
+    .choice-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .heart-card {
+        padding: 2rem;
+    }
 
-            .moon {
-                width: 100px;
-                height: 100px;
-                right: 10%;
-            }
+    .moon {
+        width: 100px;
+        height: 100px;
+        right: 10%;
+    }
 
-            .music-player-container {
-                padding: 2rem;
-            }
+    .music-player-container {
+        padding: 2rem;
+    }
 
-            .back-btn {
-                top: 1rem;
-                left: 1rem;
-            }
-        }
+    .back-btn {
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Add padding to content so it doesn't overlap with back button */
+    .heart-content {
+        padding-top: 4rem;
+    }
+    
+    .heart-header {
+        margin-top: 1rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -1218,4 +1229,5 @@ function loadTrack(index) {
     </script>
 </body>
 </html>
+
 
