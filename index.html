@@ -408,27 +408,30 @@
             color: #6d4c5b;
         }
 
-        .back-btn {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1.1rem;
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(135deg, var(--romantic-red), var(--rose-pink));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.3);
-            z-index: 1000;
-        }
+       .back-btn {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: var(--deep-rose);
+    border: 2px solid var(--rose-pink);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
 
-        .back-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.5);
-        }
+.back-btn:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 8px 30px rgba(255, 107, 157, 0.3);
+    border-color: var(--romantic-red);
+}
 
         /* ===================================
            FOR YOU (MUSIC PLAYER) VIEW
@@ -1229,5 +1232,6 @@ function loadTrack(index) {
     </script>
 </body>
 </html>
+
 
 
